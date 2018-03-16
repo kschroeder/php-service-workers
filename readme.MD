@@ -72,4 +72,42 @@ $contents = $worker->getQueue()->get();
 echo sprintf("The title is %s\n", $contents);
 ```
 
+The second example is starting up the service worker initially and then pumping it with information.  This example has an implicit directional flow that `put()` on one side pushes to `get()` on the other side, and vice versa.  
+
+```php
+<?php
+
+class Worker extends ServiceWorker
+{
+
+    protected function run()
+    {
+        while (true) {
+            $url = $this->getQueue()->get();
+            $contents = file_get_contents($url);
+            $doc = new DOMDocument();
+            $doc->loadHTML($contents);
+            $xpath = new DOMXPath($doc);
+            $nodeList = $xpath->query('//title');
+            if ($nodeList->length > 0) {
+                $this->getQueue()->put((string)$nodeList->item(0));
+            } else {
+                $this->getQueue()->put('Unknown');
+            }
+        }
+    }
+}
+
+
+$worker = new Worker();
+$worker->start();
+$queue = $worker->getQueue();
+$queue->put('https://www.magiumlib.com/');
+$queue->put('https://www.eschrade.com/');
+// Do stuff
+
+echo sprintf("The title is %s\n", $queue->get());
+echo sprintf("The title is %s\n", $queue->get());
+```
+
 What are your thoughts?
