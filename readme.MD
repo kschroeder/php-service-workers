@@ -2,7 +2,7 @@
 
 This is a public repo to accumulate some thoughts on handling asynchronous functionality in PHP.  It is mostly a dump of my thoughts on the subject.  The impetus behind creating this repository was some work I've been doing recently with Python and Node and thinking "Gee.  It would be nice to be able to do some of this in PHP." As such, this might just be a silly endeavor.
 
-Please feel free to comment on this or open issues on this repo if you have thoughts you would like to share (besides the obvious "this is stupid" response).
+Please feel free to comment on this or open issues on this repo if you have thoughts you would like to share (besides the obvious "this is stupid" response).  Or if you have thoughts on API changes, feel free to open a PR.
 
 # Introductory Thoughts
 
@@ -72,4 +72,4 @@ $contents = $worker->getQueue()->get();
 echo sprintf("The title is %s\n", $contents);
 ```
 
-
+What are your thoughts?
