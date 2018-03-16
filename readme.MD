@@ -33,6 +33,8 @@ I have very, very, very little experience in the Zend engine itself.  So take th
 
 My thought is that the service workers would each run in their own thread.  They would act like a mini-PHP-VM where they have their own variable stack, their own *everything*, but they would be closely associated with the main process.  I would think that they would be killed off on R_SHUTDOWN.  Though I could see some scenarios where you might want them to persist for a bit.  Communication would be facilitated via an intermediary broker.
 
+My thought is that the intermediary broker is the only thing that needs to be aware of both the main and the child functionality.
+
 # Code level implementation
 
 It might look something like this
