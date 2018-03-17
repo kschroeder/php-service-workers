@@ -6,7 +6,9 @@ Please feel free to comment on this or open issues on this repo if you have thou
 
 # Introductory Thoughts
 
-I have been playing around with worker queues and data queues in PHP for at least 10 years.   But most implementations require some level of a) infrastructure, or b) custom programming (which usually involves process handling).  I was recently working with some IFrame-based JavaScript and found that there was a kind of message queue that cross-domain IFrames could use to [communicate with the parent window](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage).
+I have been playing around with worker queues and data queues in PHP for at least 10 years.   But most implementations require some level of a) infrastructure, or b) custom programming (which usually involves process handling).  I was recently working with some IFrame-based JavaScript and found that there was a kind of message queue that cross-domain IFrames could use to [communicate with the parent window](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage).  That is the messaging component.
+
+You can see more about how service workers work at [Google's Service Worker Primer](https://developers.google.com/web/fundamentals/primers/service-workers/).  To quote, "A service worker is a script that your browser runs in the background, separate from a web page, opening the door to features that don't need a web page or user interaction."  On the browser side they are there to handle background syncs, push notifications and the like.  On the PHP side they could allow you to do anything that requires complex or long-running calculations concurrently, without messing up PHP's shared-nothing architecture. 
 
 In addition, I'm doing some work with Python where I can simply execute:
 
@@ -17,7 +19,9 @@ producer(data_queue) # multiprocessor function
 result = data_queue.get()
 ```
 
-What I like about both solutions is that I can do asynchronous processing out of the box without having to think about it.  It's not a full featured, distributed, asynchronous processing system, but it gets the job done when there is some level of concurrency needed. 
+That allows me to have async in Python without needing to worry about infrastructure or third party services.
+
+What I like about both solutions is that I can do asynchronous processing out of the box without having to think about it.  It's not a full featured, distributed, asynchronous processing system, but it gets the job done when there is some level of concurrency needed. That is what I would like to see in PHP: the capability to have multiple discrete, lifecycle managed, asynchronous PHP mini-VM that communicate with my mainline code via messaging.
 
 # Use Cases
 
